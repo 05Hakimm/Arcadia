@@ -1,0 +1,365 @@
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    /* pas de scroll sur le body */
+    }
+
+    /* Style pour le body dans l'iframe */
+    .chat-body {
+        background: rgba(10, 10, 20, 0.95);
+        color: #0ff;
+        font-family: monospace;
+        width: 100%;
+    }
+
+    /* Container principal qui prend tout */
+    .chat-container {
+        display: flex;
+        flex-direction: row;
+        /* on force la ligne */
+        width: 100%;
+        height: 100%;
+        background: rgba(10, 10, 20, 0.95);
+        overflow: hidden;
+        border: 1px solid #0ff;
+    }
+
+    /* Sidebar avec la liste des amis */
+    .friends-sidebar {
+        width: 80px;
+        /* largeur fixe */
+        min-width: 80px;
+        height: 100%;
+        background: linear-gradient(135deg, rgba(15, 15, 30, 0.95) 0%, rgba(20, 20, 40, 0.95) 100%);
+        border-right: 2px solid rgba(0, 255, 255, 0.3);
+        padding: 15px 8px;
+        display: flex;
+        flex-direction: column;
+        z-index: 10;
+        flex-shrink: 0;
+        overflow-y: auto;
+    }
+
+    .friends-sidebar h4 {
+        margin: 0 0 15px 0;
+        color: #0ff;
+        text-align: center;
+        border-bottom: 1px solid #0ff;
+        padding-bottom: 10px;
+        white-space: nowrap;
+        overflow: hidden;
+        font-size: 12px;
+    }
+
+    .friends-list-chat {
+        flex: 1;
+        overflow-y: auto;
+        overflow-x: hidden;
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .friend-item {
+        margin-bottom: 8px;
+    }
+
+    .friend-item a {
+        display: block;
+        padding: 12px 8px;
+        color: #0ff;
+        text-decoration: none;
+        border: 1px solid rgba(0, 255, 255, 0.2);
+        border-radius: 8px;
+        transition: all 0.3s ease;
+        background: rgba(0, 255, 255, 0.05);
+        font-size: 12px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        text-align: center;
+    }
+
+    .friend-item a:hover {
+        background: linear-gradient(135deg, rgba(0, 255, 255, 0.2) 0%, rgba(0, 204, 204, 0.15) 100%);
+        border-color: #0ff;
+        transform: translateX(5px);
+        box-shadow: 0 2px 8px rgba(0, 255, 255, 0.2);
+    }
+
+    .friend-item.active a {
+        background: linear-gradient(135deg, rgba(0, 255, 255, 0.35) 0%, rgba(0, 204, 204, 0.25) 100%);
+        border-color: #0ff;
+        font-weight: bold;
+        box-shadow: 0 0 15px rgba(0, 255, 255, 0.3);
+    }
+
+    .no-friends {
+        color: #888;
+        text-align: center;
+        font-style: italic;
+        margin-top: 20px;
+    }
+
+    /* Zone de discussion */
+    .chat-area {
+        flex: 1;
+        /* prend le reste de la place */
+        display: flex;
+        flex-direction: column;
+        background: rgba(10, 10, 20, 0.5);
+        height: 100%;
+        min-width: 0;
+        /* important pour flexbox */
+        overflow: hidden;
+        position: relative;
+    }
+
+    /* L'interface de chat (messages + form) */
+    #chat-interface {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        width: 100%;
+        overflow: hidden;
+    }
+
+    /* les messages prennent toute la place dispo */
+    .chat-messages {
+        flex: 1;
+        padding: 20px;
+        overflow-y: auto;
+        /* scroll ici seulement */
+        overflow-x: hidden;
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        scroll-behavior: smooth;
+        padding-bottom: 20px;
+        min-height: 0;
+        /* important pour que le scroll marche */
+    }
+
+    /* Style des messages */
+    .message {
+        padding: 12px 16px;
+        border-radius: 18px;
+        max-width: 75%;
+        word-wrap: break-word;
+        margin-bottom: 8px;
+        position: relative;
+        animation: messageSlide 0.3s ease-out;
+        flex-shrink: 0;
+        /* ne s'ecrase pas */
+    }
+
+    @keyframes messageSlide {
+        from {
+            opacity: 0;
+            transform: translateY(5px);
+            /* animation plus discrete */
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .message.sent {
+        background: linear-gradient(135deg, rgba(0, 255, 255, 0.4) 0%, rgba(0, 204, 204, 0.3) 100%);
+        border: 1px solid rgba(0, 255, 255, 0.6);
+        align-self: flex-end;
+        text-align: right;
+        box-shadow: 0 2px 8px rgba(0, 255, 255, 0.2);
+    }
+
+    .message.received {
+        background: linear-gradient(135deg, rgba(0, 255, 255, 0.15) 0%, rgba(0, 204, 204, 0.1) 100%);
+        border: 1px solid rgba(0, 255, 255, 0.4);
+        align-self: flex-start;
+        box-shadow: 0 2px 8px rgba(0, 255, 255, 0.1);
+    }
+
+    .message strong {
+        color: #0ff;
+        display: block;
+        margin-bottom: 6px;
+        font-size: 13px;
+        text-shadow: 0 0 8px rgba(0, 255, 255, 0.4);
+        font-weight: bold;
+    }
+
+    .message p {
+        margin: 5px 0;
+        color: #fff;
+        line-height: 1.5;
+        font-size: 14px;
+    }
+
+    .message .time {
+        font-size: 10px;
+        color: #888;
+        display: block;
+        margin-top: 6px;
+        font-style: italic;
+    }
+
+    /* Formulaire d'envoi en bas */
+    .chat-form {
+        display: flex;
+        padding: 15px;
+        border-top: 2px solid rgba(0, 255, 255, 0.3);
+        background: linear-gradient(135deg, rgba(15, 15, 30, 0.95) 0%, rgba(20, 20, 40, 0.95) 100%);
+        gap: 10px;
+        backdrop-filter: blur(5px);
+        /* on fixe la hauteur pour pas que ca depasse */
+        height: 70px;
+        flex-shrink: 0;
+        /* ne s'ecrase jamais */
+        align-items: center;
+        width: 100%;
+        z-index: 20;
+    }
+
+    .chat-form input {
+        flex: 1;
+        padding: 10px 15px;
+        background: rgba(0, 0, 0, 0.6);
+        border: 2px solid rgba(0, 255, 255, 0.4);
+        color: #0ff;
+        border-radius: 20px;
+        font-size: 14px;
+        outline: none;
+        transition: all 0.3s ease;
+        height: 40px;
+    }
+
+    .chat-form input:focus {
+        border-color: #0ff;
+        background: rgba(0, 0, 0, 0.7);
+        box-shadow: 0 0 15px rgba(0, 255, 255, 0.4);
+    }
+
+    .chat-form button {
+        padding: 0 20px;
+        height: 40px;
+        background: linear-gradient(135deg, #0ff 0%, #0cc 100%);
+        color: #000;
+        border: none;
+        border-radius: 20px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 15px rgba(0, 255, 255, 0.3);
+        white-space: nowrap;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .chat-form button:hover {
+        background: linear-gradient(135deg, #fff 0%, #0ff 100%);
+        transform: scale(1.05);
+        box-shadow: 0 6px 20px rgba(0, 255, 255, 0.5);
+    }
+
+    /* Message quand aucun chat sélectionné */
+    .no-chat-selected {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #888;
+        font-style: italic;
+        height: 100%;
+    }
+
+    /* Style pour la popup */
+    #chat-popup {
+        position: fixed;
+        bottom: 95px;
+        right: 15px;
+        width: 550px;
+        /* Largeur de la fenetre */
+        height: 650px;
+        /* Hauteur de la fenetre */
+        background: linear-gradient(135deg, rgba(15, 15, 30, 0.98) 0%, rgba(20, 20, 40, 0.98) 100%);
+        border: 2px solid #0ff;
+        border-radius: 15px;
+        box-shadow: 0 -8px 32px rgba(0, 255, 255, 0.5);
+        z-index: 9999;
+        display: none;
+        flex-direction: column;
+        overflow: hidden;
+        backdrop-filter: blur(10px);
+        animation: slideUp 0.3s ease-out;
+    }
+
+    @keyframes slideUp {
+        from {
+            opacity: 0;
+            transform: translateY(20px) scale(0.95);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+    }
+
+    .chat-header {
+        background: linear-gradient(135deg, rgba(0, 255, 255, 0.25) 0%, rgba(0, 204, 204, 0.2) 100%);
+        padding: 15px 20px;
+        border-bottom: 2px solid rgba(0, 255, 255, 0.5);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        height: 60px;
+        flex-shrink: 0;
+    }
+
+    .chat-header h3 {
+        margin: 0;
+        color: #0ff;
+        font-size: 18px;
+        font-weight: bold;
+    }
+
+    .chat-close {
+        background: rgba(255, 0, 0, 0.7);
+        color: #fff;
+        border: 2px solid rgba(255, 0, 0, 0.5);
+        width: 28px;
+        height: 28px;
+        border-radius: 50%;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s ease;
+    }
+
+    .chat-close:hover {
+        background: red;
+        transform: rotate(90deg);
+    }
+
+    #chat-iframe {
+        flex: 1;
+        width: 100%;
+        height: calc(100% - 60px);
+        /* hauteur totale moins le header */
+        border: none;
+        background: transparent;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+        #chat-popup {
+            /* Version mobile : on prend toute la largeur */
+            width: calc(100vw - 30px);
+            height: 70vh;
+        }
+    }
