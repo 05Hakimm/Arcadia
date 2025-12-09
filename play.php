@@ -51,6 +51,7 @@ if ($userId) {
 <head>
   <meta charset="UTF-8">
   <title><?= htmlspecialchars($game['title']) ?> – Arcadia</title>
+  <link rel="icon" href="asset/Logo.png" type="image/png">
   <link rel="stylesheet" href="data/emulator.css">
   <link rel="stylesheet" href="style/styles.css">
   <link rel="stylesheet" href="style/navbar.css">

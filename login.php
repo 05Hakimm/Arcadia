@@ -46,6 +46,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
   <meta charset="UTF-8">
   <title>Connexion – Arcadia</title>
+  <link rel="icon" href="asset/Logo.png" type="image/png">
   <link rel="stylesheet" href="style/styles.css">
   <link rel="stylesheet" href="style/navbar.css">
   <link rel="stylesheet" href="style/login.css">

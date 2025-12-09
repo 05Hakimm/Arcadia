@@ -14,13 +14,14 @@ if ($search) {
     $games = $bdd->query("SELECT * FROM games ORDER BY title ASC")->fetchAll(PDO::FETCH_ASSOC);
 }
 ?>
-
+?>
 <!DOCTYPE html>
 <html lang="fr">
 
 <head>
     <meta charset="UTF-8">
     <title>Arcadia – Liste des jeux</title>
+    <link rel="icon" href="asset/Logo.png" type="image/png">
     <link rel="stylesheet" href="style/styles.css">
     <link rel="stylesheet" href="style/navbar.css">
     <script src="https://kit.fontawesome.com/a4bdf5a9b9.js" crossorigin="anonymous"></script>
