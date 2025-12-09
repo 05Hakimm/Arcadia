@@ -14,7 +14,7 @@ if ($search) {
     $games = $bdd->query("SELECT * FROM games ORDER BY title ASC")->fetchAll(PDO::FETCH_ASSOC);
 }
 ?>
-?>
+
 <!DOCTYPE html>
 <html lang="fr">
 
