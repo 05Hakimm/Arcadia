@@ -61,20 +61,26 @@ if ($userId) {
 <body>
   <?php include 'partials/nav.php'; ?>
 
-  <main>
-    <div style="display: flex; align-items: center; justify-content: center; gap: 15px; margin-bottom: 20px;">
-      <h2 style="margin: 0;"><?= htmlspecialchars($game['title']) ?></h2>
+  <main class="play-container">
+    <div class="game-header">
+      <h1 class="game-title"><?= htmlspecialchars($game['title']) ?></h1>
       <?php if ($userId): ?>
-        <form method="post" style="margin: 0;">
+        <form method="post" class="favorite-form">
           <input type="hidden" name="action" value="toggle_favorite">
           <button type="submit" class="btn-fav"
-            style="background: none; border: none; cursor: pointer; font-size: 24px; color: #ffd700;">
+            title="<?= $is_favorite ? 'Retirer des favoris' : 'Ajouter aux favoris' ?>">
             <?= $is_favorite ? '★' : '☆' ?>
           </button>
         </form>
       <?php endif; ?>
     </div>
-    <div id="game"></div>
+
+    <div class="arcade-wrapper">
+      <div class="screen-bezel">
+        <div id="game"></div>
+      </div>
+      <div class="scanlines"></div>
+    </div>
   </main>
 
 
