@@ -1,0 +1,6 @@
+RewriteEngine On
+
+# Force HTTPS on Railway
+# Railway sends the X-Forwarded-Proto header. If it's not https, redirect.
+RewriteCond %{HTTP:X-Forwarded-Proto} !https
+RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
